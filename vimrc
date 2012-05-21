@@ -1,0 +1,12 @@
+set nocompatible
+set backspace=indent,eol,start
+set nobackup
+set nowritebackup
+set history=50
+set ruler
+set showcmd
+set incsearch
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set laststatus=2

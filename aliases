@@ -1,0 +1,92 @@
+# Git
+alias gpo="git push origin"
+alias gb="git branch"
+alias gba="git branch -a"
+alias gc="git commit -v"
+alias gd="git diff | mate"
+alias gl="git pull"
+alias gp="git push"
+alias gst="git status"
+
+# Gitflow
+alias gffs="git flow feature start"
+alias gfff="git flow feature finish"
+alias gfrs="git flow release start"
+alias gfrf="git flow release finish"
+alias gfhs="git flow hotfix start"
+alias gfhf="git flow hotfix finish"
+
+# Rails
+alias console="bundle exec rails c"
+alias be="bundle exec"
+alias ber="bundle exec rake"
+alias migrate="bundle exec rake db:migrate --trace"
+alias redo="bundle exec rake db:migrate:redo --trace"
+alias seed="bundle exec rake db:seed"
+alias routes="ber routes | grep"
+alias tlog="tail -f log/development.log"
+
+# Rails 2.x
+alias ss="./script/server"
+alias sc="./script/console"
+alias sg="./script/generate"
+
+function rollback() {
+  if [ $1 ]; then
+    bundle exec rake db:rollback STEP=$*
+  else
+    bundle exec rake db:rollback
+  fi
+}
+
+function start() {
+  if [ $1 ]; then
+    
+    if [ $1 = "solr" ]; then
+      bundle check || bundle install
+      bundle exec rake sunspot:solr:start --trace
+    fi
+    
+    if [ $1 = "nginx" ]; then
+      sudo launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist
+    fi
+    
+    if [ $1 = "redis" ]; then
+      launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.redis.plist
+    fi
+    
+  else
+    echo "Expects a parameter (nginx|redis|solr)"
+  fi
+}
+
+function stop() {
+  if [ $1 ]; then
+    
+    if [ $1 = "solr" ]; then
+      bundle check || bundle install
+      bundle exec rake sunspot:solr:stop --trace
+    fi
+    
+    if [ $1 = "nginx" ]; then
+      sudo launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist
+    fi
+    
+    if [ $1 = "redis" ]; then
+      launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.redis.plist
+    fi
+    
+  else
+    echo "Expects a parameter (nginx|redis|solr)"
+  fi
+}
+
+function restart() {
+  if [ $1 ]; then
+    stop $1
+    start $1
+  else
+    # If no params are passed in we restart Pow app (Rails, etc.) from inside directory
+    touch tmp/restart.txt
+  fi
+}

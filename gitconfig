@@ -1,0 +1,31 @@
+[user]
+  name = 
+  email = 
+
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  ui = auto
+
+[alias]
+  co = checkout
+  stat = status
+  ci = commit
+  st = status
+  ci = commit
+  br = branch
+  df = diff
+  lg = log -p
+  lol = log --graph --decorate --pretty=oneline --abbrev-commit
+  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+  ls = ls-files
+
+[apply]
+  whitespace = nowarn
+
+[format]
+  pretty = %C(yellow)%h%Creset %s %C(red)(%an, %cr)%Creset
+
+[push]
+  default = current

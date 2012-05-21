@@ -1,0 +1,9 @@
+if [ -d "/usr/local/nginx/sbin" ]; then
+  export PATH=$PATH:/usr/local/nginx/sbin
+fi
+
+if [ -d "/usr/local/mysql/bin" ]; then
+  export PATH=$PATH:/usr/local/mysql/bin
+fi
+
+export PATH=$PATH:.
